@@ -5,6 +5,8 @@ import {CustomInput} from '../components/CustomInput';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {CustomButton} from '../components/CustomButton';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {useDispatch} from 'react-redux';
+import {_SignUp} from '../redux/actions';
 
 export interface SignUpProps {
   navigation: StackNavigationProp<any>;
@@ -16,6 +18,13 @@ export function SignUp({navigation}: SignUpProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [tnc, setTnc] = useState(false);
+
+  const dispatch = useDispatch();
+  const signUp = () => {
+    _SignUp(dispatch)(email.trim(), password, name, phNo.trim(), () => {
+      navigation.navigate('verifyotp');
+    });
+  };
 
   const regexEmail = /\S+@\S+\.\S+/;
 
@@ -68,9 +77,7 @@ export function SignUp({navigation}: SignUpProps) {
       </View>
 
       <CustomButton
-        onPress={() => {
-          navigation.navigate('verifyotp');
-        }}
+        onPress={signUp}
         text="GET STARTED"
         style={{marginVertical: 25}}
       />

@@ -41,7 +41,7 @@ export function CustomInput({
         style={styles.input}
         autoCorrect={false}
         spellCheck={false}
-        secureTextEntry={show}
+        secureTextEntry={hidden && !show}
       />
       {correct && <MaterialIcons name="check" size={20} color="#98d33c" />}
       {hidden && (
@@ -49,7 +49,7 @@ export function CustomInput({
           onPress={() => {
             setShow(!show);
           }}>
-          <Entypo name={show ? 'eye-with-line' : 'eye'} size={20} />
+          <Entypo name={show ? 'eye' : 'eye-with-line'} size={20} />
         </TouchableOpacity>
       )}
     </View>

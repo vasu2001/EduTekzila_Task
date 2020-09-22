@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1020566322154",
+    "firebase_url": "https://edutekzilla.firebaseio.com",
+    "project_id": "edutekzilla",
+    "storage_bucket": "edutekzilla.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1020566322154:android:5a7e859e1d8ee7e2215093",
+        "android_client_info": {
+          "package_name": "com.edutekzila_task"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1020566322154-6lnnf31k3qbem76j2d4cka27qk29l3ps.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC98zdfc4xtvq3dYz0nKUtzgKC75N0tF0U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1020566322154-6lnnf31k3qbem76j2d4cka27qk29l3ps.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
