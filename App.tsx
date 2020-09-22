@@ -10,6 +10,7 @@ import {storeInterface} from './src/redux/utils';
 const initialStore: storeInterface = {
   isLoggedIn: false,
   user: null,
+  loading: false,
 };
 
 const store = createStore(MainReducer, initialStore);

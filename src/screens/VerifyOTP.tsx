@@ -8,8 +8,10 @@ import {
   Keyboard,
   TouchableOpacity,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
 import BgHeader from '../components/BgHeader';
 import {CustomButton} from '../components/CustomButton';
+import {_VerifyOtp} from '../redux/actions';
 
 export interface VerifyOTPProps {
   navigation: StackNavigationProp<any>;
@@ -23,6 +25,11 @@ export function VerifyOTP({navigation}: VerifyOTPProps) {
     createRef<TextInput>(),
     createRef<TextInput>(),
   ];
+
+  const dispatch = useDispatch();
+  const verifyOTP = () => {
+    _VerifyOtp(dispatch)(() => {});
+  };
 
   return (
     <BgHeader
@@ -62,7 +69,7 @@ export function VerifyOTP({navigation}: VerifyOTPProps) {
 
       <CustomButton
         text="VERIFY MOBILE NUMBER"
-        onPress={() => {}}
+        onPress={verifyOTP}
         style={styles.submitButton}
       />
     </BgHeader>

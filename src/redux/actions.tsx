@@ -3,6 +3,7 @@ import {Dispatch} from 'redux';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 import {GoogleSignin} from '@react-native-community/google-signin';
+import {ToastAndroid} from 'react-native';
 
 GoogleSignin.configure({
   webClientId:
@@ -16,7 +17,16 @@ const signIn = (payload: storeInterface['user']): actionInterface => {
   };
 };
 
+const signUp = (payload: storeInterface['user']): actionInterface => {
+  return {
+    type: dispatchNames.signUp,
+    payload,
+  };
+};
+
 const logOut = (): actionInterface => ({type: dispatchNames.logOut});
+const loading = (): actionInterface => ({type: dispatchNames.loading});
+const verifyOtp = (): actionInterface => ({type: dispatchNames.verifyOtp});
 
 export const _SignIn = (dispatch: Dispatch) => async (
   email: string,
@@ -24,6 +34,8 @@ export const _SignIn = (dispatch: Dispatch) => async (
   callback: () => void,
 ): Promise<void> => {
   try {
+    dispatch(loading());
+
     const userRes = await auth().signInWithEmailAndPassword(email, password);
     console.log(userRes);
 
@@ -41,8 +53,10 @@ export const _SignIn = (dispatch: Dispatch) => async (
     );
   } catch (err) {
     console.log(err);
-    callback();
+    ToastAndroid.show('wrong email/password', 100);
   }
+  callback();
+  dispatch(loading());
 };
 
 export const _SignUp = (dispatch: Dispatch) => async (
@@ -53,6 +67,8 @@ export const _SignUp = (dispatch: Dispatch) => async (
   callback: () => void,
 ): Promise<void> => {
   try {
+    dispatch(loading());
+
     const userRes = await auth().createUserWithEmailAndPassword(
       email,
       password,
@@ -64,7 +80,7 @@ export const _SignUp = (dispatch: Dispatch) => async (
     await ref.child('phNo').set(phNo);
 
     dispatch(
-      signIn({
+      signUp({
         userId: userRes?.user?.uid,
         email,
         name,
@@ -75,6 +91,7 @@ export const _SignUp = (dispatch: Dispatch) => async (
     console.log(err);
   }
   callback();
+  dispatch(loading());
 };
 
 export const _LogOut = (dispatch: Dispatch) => async (
@@ -95,6 +112,8 @@ export const _GoogleSignin = (dispatch: Dispatch) => async (
   callback: () => void,
 ) => {
   try {
+    dispatch(loading());
+
     const {idToken} = await GoogleSignin.signIn();
     const credential = auth.GoogleAuthProvider.credential(idToken);
 
@@ -120,5 +139,13 @@ export const _GoogleSignin = (dispatch: Dispatch) => async (
   } catch (err) {
     console.log(err);
   }
+  callback();
+  dispatch(loading());
+};
+
+export const _VerifyOtp = (dispatch: Dispatch) => async (
+  callback: () => void,
+) => {
+  dispatch(verifyOtp());
   callback();
 };
